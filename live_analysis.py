@@ -9,6 +9,7 @@ from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
 import re
 import hashlib
+import uuid
 
 from models import Entity, Event, Case
 from engine import detect_signals, risk_fusion, intervention, reconstruct, investigation_explanation
@@ -124,7 +125,7 @@ def analyze_submission(payload: dict, known_cases: list[Case]) -> dict:
     attack_chain = reconstruct(events)
     # The classifier is a separate synthetic-data demo signal; do not present it as a real-world probability.
     case = Case(
-        case_id="LIVE-" + now.strftime("%H%M%S"),
+        case_id="LIVE-" + now.strftime("%Y%m%d-%H%M%S") + "-" + uuid.uuid4().hex[:6].upper(),
         victim_id="SUBMITTED-USER",
         created_at=now.isoformat(),
         source="Interactive analyst intake",
