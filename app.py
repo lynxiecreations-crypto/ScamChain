@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from ml import evaluate, score_case, ensure_model_artifact
 from data import make_cases
 from campaign_eval import evaluate as evaluate_campaigns
@@ -17,6 +17,11 @@ app=FastAPI(title="ScamChain v2.7 Campaign Investigation")
 app.include_router(evidence_router)
 app.include_router(defense_router)
 cases=make_cases()
+
+@app.get("/", include_in_schema=False)
+def home():
+    """Send the public root URL to the interactive scam-analysis workflow."""
+    return RedirectResponse(url="/simulator", status_code=307)
 
 # In-memory live investigations from the interactive judge demo; not mixed into offline benchmark metrics.
 live_cases = []
