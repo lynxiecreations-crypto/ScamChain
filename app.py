@@ -16,6 +16,9 @@ app=FastAPI(title="ScamChain v2.7 Campaign Investigation")
 app.include_router(evidence_router)
 cases=make_cases()
 
+# In-memory live investigations from the interactive judge demo; not mixed into offline benchmark metrics.
+live_cases = []
+
 @app.get("/api/cases")
 def api_cases():
     return [c.to_dict() for c in cases]
@@ -25,6 +28,53 @@ def api_case(case_id:str):
     for c in cases:
         if c.case_id==case_id: return c.to_dict()
     raise HTTPException(404,"Case not found")
+
+
+@app.post("/api/analyze")
+def api_analyze(payload: dict):
+    """Analyze submitted evidence and retain the latest live case for the connected graph."""
+    try:
+        result = analyze_submission(payload, cases)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    live_case = result.get("case", {})
+    if live_case:
+        live_cases.insert(0, live_case)
+        del live_cases[25:]
+    return result
+
+@app.get("/api/live-cases")
+def api_live_cases():
+    """Recent interactive cases only; isolated from offline benchmark data."""
+    return live_cases
+
+@app.get("/api/live-graph")
+def api_live_graph():
+    """Combine the seeded graph with entities/events from submitted live investigations."""
+    base = api_graph()
+    nodes = {n["id"]: dict(n) for n in base["nodes"]}
+    edges = list(base["edges"])
+    for case in live_cases:
+        cid = case.get("case_id", "LIVE")
+        for entity in case.get("entities", []):
+            eid = entity.get("entity_id")
+            if not eid:
+                continue
+            node = nodes.setdefault(eid, {"id": eid, "type": entity.get("type", "ENTITY"),
+                                          "label": entity.get("value", eid), "case_ids": []})
+            if cid not in node["case_ids"]:
+                node["case_ids"].append(cid)
+        for event in case.get("events", []):
+            entity_ids = [eid for eid in event.get("entities", []) if eid in nodes]
+            for i in range(len(entity_ids) - 1):
+                edges.append({"source": entity_ids[i], "target": entity_ids[i + 1],
+                              "relation": event.get("event_type", "LIVE_EVENT"),
+                              "evidence": event.get("event_id", "LIVE_EVIDENCE"),
+                              "observed_at": event.get("timestamp"), "confidence": event.get("confidence", 0.0),
+                              "case_id": cid, "live": True})
+    return {"nodes": list(nodes.values()), "edges": edges,
+            "live_case_count": len(live_cases),
+            "latest_live_case_id": live_cases[0].get("case_id") if live_cases else None}
 
 @app.get("/api/graph")
 def api_graph():
