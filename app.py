@@ -10,8 +10,10 @@ from provenance_eval import evaluate as evaluate_provenance
 from campaign_investigation_eval import benchmark as evaluate_campaign_investigation
 from engine import investigation_explanation, campaign_investigation
 from live_analysis import analyze_submission
+from evidence_hub import router as evidence_router
 
 app=FastAPI(title="ScamChain v2.7 Campaign Investigation")
+app.include_router(evidence_router)
 cases=make_cases()
 
 @app.get("/api/cases")
