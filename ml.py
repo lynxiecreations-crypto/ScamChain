@@ -141,8 +141,8 @@ def evaluate(seed=42):
     }
 
 
-MODEL_PATH = Path(__file__).resolve().parent / "artifacts" / "scamchain_rf.joblib"
-MODEL_META_PATH = Path(__file__).resolve().parent / "artifacts" / "model_metadata.json"
+MODEL_PATH = Path(__file__).resolve().parent / "scamchain_rf.joblib"
+MODEL_META_PATH = Path(__file__).resolve().parent / "model_metadata.json"
 
 
 def fit_deployment_model(seed=42):
