@@ -282,3 +282,62 @@ async function drawGraph(c){let g=await fetch('/api/graph').then(r=>r.json());le
 function clearTabs(active){['casesTab','campaignTab','mlTab','campaignBenchTab','riskTab','advTab','evidenceTab','provenanceTab','campaignReplayTab'].forEach(id=>$(id).classList.toggle('active',id===active))}
 $('casesTab').onclick=()=>{renderCases();clearTabs('casesTab')};$('campaignTab').onclick=()=>{renderCampaigns();clearTabs('campaignTab')};$('mlTab').onclick=()=>{renderML();clearTabs('mlTab')};$('campaignBenchTab').onclick=()=>{renderCampaignBenchmark();clearTabs('campaignBenchTab')};$('riskTab').onclick=()=>{renderRisk();clearTabs('riskTab')};$('advTab').onclick=()=>{renderAdversarial();clearTabs('advTab')};$('evidenceTab').onclick=()=>{renderEvidence();clearTabs('evidenceTab')};$('provenanceTab').onclick=()=>{renderProvenance();clearTabs('provenanceTab')};$('campaignReplayTab').onclick=()=>{renderCampaignReplay();clearTabs('campaignReplayTab')};load();
 </script><div id="scamchain-ambient" aria-hidden="true"></div><canvas id="scamchain-particles" aria-hidden="true"></canvas><button id="scamchain-mode" type="button" aria-label="Change animated background" title="Switch animated background">✦ LIVE VISUALS · NETWORK</button><script>(()=>{const c=document.getElementById('scamchain-particles'),ambient=document.getElementById('scamchain-ambient'),btn=document.getElementById('scamchain-mode');if(!c||!c.getContext)return;const ctx=c.getContext('2d',{alpha:true});let w=0,h=0,dpr=1,raf=0,last=0,mode=0,points=[],drops=[],mouse={x:-9999,y:-9999};const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;const modes=['NETWORK','CYBER RAIN','AURORA FIELD'];function resize(){dpr=Math.min(devicePixelRatio||1,1.6);w=c.width=Math.floor(innerWidth*dpr);h=c.height=Math.floor(innerHeight*dpr);c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';points=Array.from({length:Math.min(105,Math.floor(innerWidth/13))},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.24*dpr,vy:(Math.random()-.5)*.24*dpr,r:(.5+Math.random()*1.5)*dpr,a:.15+Math.random()*.38,p:Math.random()*6.28,purple:Math.random()<.12}));drops=Array.from({length:Math.min(68,Math.floor(innerWidth/21))},()=>({x:Math.random()*w,y:Math.random()*h,s:(1.1+Math.random()*3.4)*dpr,n:5+Math.floor(Math.random()*13),a:.15+Math.random()*.4}));}function network(){const reach=145*dpr;for(let i=0;i<points.length;i++){const p=points[i];if(!reduce){p.x+=p.vx;p.y+=p.vy;p.p+=.012;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0}const pulse=.7+.3*Math.sin(p.p);ctx.beginPath();ctx.arc(p.x,p.y,p.r*(p.purple?1.5:1),0,Math.PI*2);ctx.fillStyle=p.purple?'rgba(174,142,255,'+(p.a*pulse)+')':'rgba(96,226,250,'+p.a+')';ctx.shadowBlur=p.purple?10*dpr:5*dpr;ctx.shadowColor=p.purple?'#a78bfa':'#43d7ef';ctx.fill();ctx.shadowBlur=0;for(let j=i+1;j<points.length;j++){const q=points[j],dist=Math.hypot(p.x-q.x,p.y-q.y);if(dist<reach){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle='rgba(74,183,226,'+(.15*(1-dist/reach))+')';ctx.lineWidth=.7*dpr;ctx.stroke()}}const md=Math.hypot(p.x-mouse.x*dpr,p.y-mouse.y*dpr);if(md<135*dpr){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mouse.x*dpr,mouse.y*dpr);ctx.strokeStyle='rgba(167,139,250,'+(.25*(1-md/(135*dpr)))+')';ctx.stroke()}}}function rain(){ctx.font=(11*dpr)+'px ui-monospace,monospace';for(const p of drops){if(!reduce)p.y+=p.s*dpr*2.5;if(p.y>h+40*dpr){p.y=-Math.random()*h;p.x=Math.random()*w}for(let k=0;k<p.n;k++){const yy=p.y-k*14*dpr;if(yy<0||yy>h)continue;const alpha=p.a*(1-k/p.n);ctx.fillStyle='rgba('+(k===0?'120,250,220':'57,190,168')+','+alpha+')';ctx.fillText(['0','1','·','/','×','∷'][Math.floor((k+p.x)%6)],p.x,yy)}}}function aurora(){const t=performance.now()*.00008;for(let i=0;i<5;i++){const xx=(.18+.17*i+.12*Math.sin(t+i))*w,yy=(.25+.23*Math.cos(t*1.3+i))*h,g=ctx.createRadialGradient(xx,yy,0,xx,yy,Math.max(w,h)*.36);const hue=i%2?'153,113,255':'37,190,229';g.addColorStop(0,'rgba('+hue+',.095)');g.addColorStop(1,'rgba('+hue+',0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h)}if(!reduce){for(const p of points){p.x+=p.vx*.4;p.y+=p.vy*.4;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fillStyle='rgba(145,220,255,.3)';ctx.fill()}}}function draw(t){raf=requestAnimationFrame(draw);if(reduce&&t-last<800)return;last=t;ctx.clearRect(0,0,w,h);if(mode===0)network();else if(mode===1)rain();else aurora()}function setMode(){mode=(mode+1)%modes.length;document.body.dataset.visualMode=modes[mode].toLowerCase().replace(' ','-');btn.textContent='✦ LIVE VISUALS · '+modes[mode];if(ambient)ambient.dataset.mode=modes[mode].toLowerCase().replace(' ','-')}btn&&btn.addEventListener('click',setMode);addEventListener('resize',resize,{passive:true});addEventListener('pointermove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;if(ambient){ambient.style.setProperty('--mx',(e.clientX/innerWidth*100)+'%');ambient.style.setProperty('--my',(e.clientY/innerHeight*100)+'%')}},{passive:true});resize();draw(0)})();</script></body></html>'''
+
+
+# SCAMCHAIN_SHARED_SHELL: a consistent navigation and visual layer across all HTML tools.
+from starlette.responses import Response
+
+SHELL_CSS = r"""
+<style id="scamchain-shared-shell">
+:root{--sc-ink:#edf5ff;--sc-muted:#92a8c1;--sc-line:rgba(115,175,210,.18);--sc-cyan:#72e7f7;--sc-violet:#b4a0ff}
+.sc-shellbar{position:sticky;top:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px clamp(14px,3vw,36px);background:rgba(5,11,23,.91);border-bottom:1px solid var(--sc-line);backdrop-filter:blur(22px);box-shadow:0 10px 30px rgba(0,0,0,.22);font:12px Inter,ui-sans-serif,system-ui,sans-serif}
+.sc-shellbrand{display:flex;align-items:center;gap:10px;white-space:nowrap;color:var(--sc-ink);font-weight:850;letter-spacing:1.1px;text-decoration:none}
+.sc-shellmark{display:grid;place-items:center;width:29px;height:29px;border:1px solid rgba(114,231,247,.5);border-radius:9px;color:#8df0ff;background:linear-gradient(145deg,#123b50,#171b39);box-shadow:0 0 22px rgba(73,211,244,.12);font-size:13px}
+.sc-shellnav{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.sc-shellnav a{color:#91a8c2;text-decoration:none;padding:8px 10px;border:1px solid transparent;border-radius:8px;transition:all .18s}
+.sc-shellnav a:hover{color:#f4fcff;background:rgba(29,57,80,.55);border-color:var(--sc-line)}
+.sc-shellnav a.sc-active{color:#b8f5ff;background:rgba(33,114,139,.18);border-color:rgba(114,231,247,.25)}
+.sc-shellbadge{font:9px ui-monospace,monospace;letter-spacing:1px;color:#6ce6b1;border:1px solid rgba(108,230,177,.25);background:rgba(19,70,55,.24);padding:5px 7px;border-radius:99px;white-space:nowrap}
+body{background-color:#050914}
+@media(max-width:760px){.sc-shellbar{align-items:flex-start;flex-direction:column;gap:7px}.sc-shellnav{justify-content:flex-start;width:100%}.sc-shellnav a{padding:7px 8px;font-size:11px}.sc-shellbadge{display:none}}
+@media(prefers-reduced-motion:reduce){.sc-shellnav a{transition:none}}
+</style>
+"""
+SHELL_LINKS = [
+    ("/simulator", "Analyze"),
+    ("/threat-map", "Threat Graph"),
+    ("/evidence", "Evidence"),
+    ("/defense-lab", "Defense Lab"),
+    ("/validation", "Validation"),
+]
+@app.middleware("http")
+async def scamchain_shared_shell(request, call_next):
+    response = await call_next(request)
+    content_type = response.headers.get("content-type", "")
+    if "text/html" not in content_type or request.url.path.startswith("/docs"):
+        return response
+    chunks = []
+    async for chunk in response.body_iterator:
+        chunks.append(chunk)
+    body = b"".join(chunks)
+    try:
+        html = body.decode("utf-8")
+        path = request.url.path
+        links = "".join(
+            '<a href="' + href + '"' + (' class="sc-active"' if path == href or (href == "/simulator" and path == "/") else "") + '>' + label + '</a>'
+            for href, label in SHELL_LINKS
+        )
+        nav = '<nav class="sc-shellbar" aria-label="ScamChain workspace navigation"><a class="sc-shellbrand" href="/simulator"><span class="sc-shellmark">S</span><span>SCAMCHAIN <span style="color:#72e7f7">/</span> INTELLIGENCE</span></a><div class="sc-shellnav">' + links + '</div><span class="sc-shellbadge">PROTOTYPE · LIVE WORKSPACE</span></nav>'
+        if 'id="scamchain-shared-shell"' not in html:
+            html = html.replace("</head>", SHELL_CSS + "</head>", 1)
+            html = html.replace("<body", "<body", 1)
+            body_end = html.find(">", html.find("<body"))
+            if body_end >= 0:
+                html = html[:body_end + 1] + nav + html[body_end + 1:]
+        new_body = html.encode("utf-8")
+        headers = dict(response.headers)
+        headers.pop("content-length", None)
+        headers.pop("content-encoding", None)
+        return Response(content=new_body, status_code=response.status_code, headers=headers, media_type="text/html")
+    except Exception:
+        return Response(content=body, status_code=response.status_code, headers=dict(response.headers), media_type=content_type.split(";")[0] or "text/html")
