@@ -1,0 +1,30 @@
+{
+  "artifact": "scamchain_rf.joblib",
+  "model_type": "CalibratedClassifierCV(RandomForestClassifier)",
+  "training_data": "synthetic",
+  "training_rows": 1200,
+  "seed": 42,
+  "features": [
+    "URGENCY",
+    "THREAT_LANGUAGE",
+    "AUTHORITY_IMPERSONATION",
+    "CREDENTIAL_OTP_SOLICITATION",
+    "IDENTITY_INCONSISTENCY",
+    "KNOWN_ENTITY_IMPERSONATION",
+    "NEW_UNVERIFIED_IDENTITY",
+    "MALICIOUS_URL",
+    "DOMAIN_REPUTATION",
+    "INFRASTRUCTURE_REUSE",
+    "SUSPICIOUS_IP_DEVICE",
+    "UNUSUAL_VICTIM_BEHAVIOR",
+    "NEW_BENEFICIARY",
+    "TRANSACTION_DEVIATION",
+    "SUSPICIOUS_EVENT_ORDER",
+    "COMPRESSED_WORKFLOW",
+    "CROSS_CASE_ENTITY_REUSE",
+    "ATTACK_PATTERN_SIMILARITY",
+    "temporal_x_graph_1",
+    "temporal_x_graph_2"
+  ],
+  "warning": "Prototype-only model trained on synthetic data; not for production decisions."
+}

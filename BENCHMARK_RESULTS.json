@@ -1,0 +1,9 @@
+{
+  "note": "All benchmark values are synthetic prototype measurements, not production performance claims.",
+  "ml": {"full_fusion_f1": 0.985, "full_fusion_pr_auc": 0.999, "full_fusion_roc_auc": 0.999, "full_fusion_brier": 0.008, "ece": 0.02},
+  "campaign": {"cases": 36, "families": 6, "pair_roc_auc": 0.983, "pair_pr_auc": 0.6, "clustering_ari": 0.847, "identifier_reuse": false},
+  "intervention": {"observations": 22, "stage_accuracy": 1.0, "unnecessary_intervention_rate": 0.0},
+  "adversarial": {"benign_fpr": 0.0, "partial_attack_detection": 0.933, "reordered_chain_accuracy": 1.0, "rotated_identifier_similarity_mean": 0.5},
+  "provenance": {"coverage": 1.0, "replay_steps": 8, "stage_counterfactual_checks": "6/6"},
+  "campaign_investigation": {"campaign_cases": 3, "replay_steps": 21, "stage_coverage_complete": true, "pair_evidence_count": 3, "earliest_intervention": "BENEFICIARY_CREATION"}
+}
