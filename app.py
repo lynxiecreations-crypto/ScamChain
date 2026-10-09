@@ -11,9 +11,11 @@ from campaign_investigation_eval import benchmark as evaluate_campaign_investiga
 from engine import investigation_explanation, campaign_investigation
 from live_analysis import analyze_submission
 from evidence_hub import router as evidence_router
+from defense_lab import router as defense_router
 
 app=FastAPI(title="ScamChain v2.7 Campaign Investigation")
 app.include_router(evidence_router)
+app.include_router(defense_router)
 cases=make_cases()
 
 # In-memory live investigations from the interactive judge demo; not mixed into offline benchmark metrics.
