@@ -37,11 +37,23 @@ def api_analyze(payload: dict):
         result = analyze_submission(payload, cases)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc))
+    except Exception:
+        import logging
+        logging.getLogger("scamchain.analysis").exception("Live analysis failed")
+        raise HTTPException(status_code=500, detail="Analysis could not complete. Please retry with a shorter message or URL.")
     live_case = result.get("case", {})
     if live_case:
+        live_cases[:] = [c for c in live_cases if c.get("case_id") != live_case.get("case_id")]
         live_cases.insert(0, live_case)
         del live_cases[25:]
+    result["case_link"] = "/threat-map?case=" + str(live_case.get("case_id", ""))
     return result
+
+@app.get("/api/health")
+def api_health():
+    """Readiness endpoint for UI diagnostics and deployment checks."""
+    return {"status": "ok", "service": "ScamChain", "analysis": True,
+            "seeded_cases": len(cases), "live_cases_in_this_process": len(live_cases)}
 
 @app.get("/api/live-cases")
 def api_live_cases():
