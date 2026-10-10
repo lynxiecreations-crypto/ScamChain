@@ -386,3 +386,66 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .topbar .top-meta{padding-right:145px!important;gap:8px!important}
 @media(max-width:800px){.topbar .top-meta{padding-right:0!important;padding-top:48px!important}.tour-restart{top:8px!important;right:10px!important}}
 @media(max-width:600px){.panel{padding:16px}.victim-help-panel{padding:17px}.recovery-result{padding:15px}.fineprint{font-size:11px;line-height:1.75}}
+
+/* 2026-10-10 readability patch: enforce readable contrast in all light cards and simulation/recovery screens */
+:root{
+  --text:#14263d;
+  --muted:#475569;
+  --line:#cbd5e1;
+}
+body, .main { color:#14263d!important; }
+.panel p,.panel li,.panel small,.panel label,
+.panel .muted,.panel .fineprint,.panel .section-intro,
+.finding p,.finding small,.finding li,
+.tree-evidence p,.tree-evidence small,.tree-branch-detail p,
+.node-inspector p,.node-inspector small,
+.sim-chain-step p,.sim-chain-step small,
+.sim-outcome,.sim-device-caption,.sim-message-date,
+.event-content,.event-ref,.event-time,
+.recovery-result p,.recovery-result li,.recovery-result small,
+.victim-help-result,.victim-help-result p,.victim-help-result li,
+.tour-card p,.tour-card small {
+  color:#334155!important;
+  opacity:1!important;
+}
+.recovery-result,.victim-help-result,.sim-warning,.sim-webpage,
+.sim-screen,.sim-status,.sim-app-head,.sim-bubble,
+.sim-chain-step,.scenario-btn,.finding,.tree-evidence,
+.tree-branch-detail,.node-inspector,.legend-explain {
+  color:#14263d!important;
+}
+.recovery-result *,.victim-help-result * {
+  opacity:1!important;
+}
+.recovery-panel,.victim-help-panel {
+  background:#f0faf5!important;
+  border:1px solid #9bd9bd!important;
+}
+.recovery-panel h1,.recovery-panel h2,.recovery-panel h3,
+.recovery-panel p,.recovery-panel label,.recovery-panel li,
+.recovery-panel .fineprint,
+.victim-help-panel h1,.victim-help-panel h2,.victim-help-panel h3,
+.victim-help-panel p,.victim-help-panel label,.victim-help-panel li {
+  color:#14532d!important;
+  opacity:1!important;
+}
+.recovery-result,.victim-help-result {
+  background:#ffffff!important;
+  color:#14263d!important;
+  border:1px solid #cbd5e1!important;
+}
+.recovery-options button,.sim-phone-actions button,
+button.btn.ghost,a.btn.ghost {
+  color:#14263d!important;
+  background:#ffffff!important;
+  border-color:#bdccdd!important;
+}
+.btn.primary,.sim-phone-actions button.primary-action,
+button.primary-action {
+  color:#ffffff!important;
+  background:#087f83!important;
+  border-color:#087f83!important;
+}
+input,textarea,select { color:#14263d!important; }
+input::placeholder,textarea::placeholder { color:#64748b!important; opacity:1!important; }
+button:disabled,[aria-disabled="true"] { color:#475569!important; opacity:1!important; }
