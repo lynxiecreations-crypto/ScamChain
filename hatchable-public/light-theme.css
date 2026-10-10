@@ -1,0 +1,78 @@
+/* ScamChain light intelligence theme — clean, accessible, high-contrast */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+:root{color-scheme:light;--bg:#f4f7fc;--panel:#fff;--panel2:#f7faff;--line:#dce6f3;--text:#142b4d;--muted:#617792;--cyan:#1769e8;--violet:#7357d9;--amber:#b8750a;--red:#cf3150;--green:#16845b;--radius:15px}
+html,body{background:#f4f7fc!important;color:#142b4d!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important}
+body{background-image:radial-gradient(ellipse at 8% 0%,#dbeafe99,transparent 34%),radial-gradient(ellipse at 94% 14%,#e8e9ff80,transparent 30%)!important}
+.ambient{opacity:.18!important;filter:blur(100px)!important}.ambient-a{background:#60a5fa!important}.ambient-b{background:#a5b4fc!important}
+.shell,.main{background:transparent!important}.shell{grid-template-columns:250px minmax(0,1fr)!important}
+.sidebar{background:#ffffffed!important;border-right:1px solid #dce6f3!important;box-shadow:5px 0 24px #1e3a5f08!important;backdrop-filter:blur(20px)!important}
+.brand,.brand b,.topbar,.topbar h1,.nav-caption,.sidebar-bottom,.sidebar-bottom p,.privacy-note b,.privacy-note small{color:#142b4d!important}
+.brand-mark{border-radius:12px!important;background:linear-gradient(145deg,#2563eb,#7c3aed)!important;color:#fff!important;box-shadow:0 5px 14px #2563eb28!important}
+.brand small{color:#647da0!important}
+.nav-caption,.eyebrow{font-family:Inter,system-ui,sans-serif!important;color:#6c82a1!important;letter-spacing:.12em!important}
+.nav button{border-radius:11px!important;border:1px solid transparent!important;color:#304968!important;background:transparent!important}
+.nav button span{color:#2563eb!important}.nav button:hover,.nav button.active{color:#1458c8!important;background:linear-gradient(90deg,#e5efff,#f5f8ff)!important;border-color:#d7e6ff!important;box-shadow:inset 3px 0 #2563eb!important}
+.privacy-note{background:#f7faff!important;border-color:#dce6f3!important;border-radius:12px!important}
+.status-line i,.status-pill i,.live i{background:#16a36a!important;box-shadow:0 0 8px #16a36a28!important}
+.main{max-width:1740px!important;padding-top:28px!important}
+.topbar{border-bottom:1px solid #dce6f3!important;padding-bottom:22px!important;align-items:flex-start!important}
+.topbar h1{font-size:clamp(32px,3.7vw,49px)!important;font-weight:800!important;letter-spacing:-.045em!important;line-height:1.08!important}
+.topbar h1 span{color:#2563eb!important}.topbar p{color:#617792!important;font-size:13px!important}
+.top-meta select,select,input,textarea{color:#142b4d!important;background:#fff!important;border-color:#cbd9eb!important}
+.status-pill,.case-pill,.counter{background:#f8fbff!important;color:#4b6381!important;border:1px solid #dce6f3!important;border-radius:8px!important}
+.case-pill{color:#175bc3!important}
+.hero-copy,.hero-visual,.panel,.metric,.pipeline article,.form-panel,.event-card,.finding,.timeline-item,.tree-branch-detail,.tree-evidence,.node-inspector,.legend-explain,.scenario-btn,.sim-chain-step,.sim-webpage,.sim-warning,.correlate-footer,.empty-state{background:#fff!important;color:#142b4d!important;border:1px solid #dce6f3!important;box-shadow:0 8px 25px #29466b0a!important;border-radius:15px!important}
+.hero-copy{position:relative;overflow:hidden}.hero-copy:before{content:none!important}
+.hero-copy h2,.section-heading h2,.panel h3{font-family:Inter,system-ui,sans-serif!important;color:#142b4d!important;letter-spacing:-.035em!important;font-weight:750!important}
+.hero-copy h2{font-size:clamp(28px,3vw,40px)!important;line-height:1.18!important}.hero-copy h2 em{color:#2563eb!important}
+.hero-copy p,.panel p,.panel li,.pipeline p,.section-intro,.muted,.panel-head p,.metric>span,.sidebar-bottom>p{color:#536b88!important}
+.btn{border-radius:10px!important;font-family:Inter,system-ui,sans-serif!important;letter-spacing:0!important}
+.btn.primary{background:linear-gradient(110deg,#1769e8,#367ff2)!important;color:#fff!important;border-color:#1769e8!important;box-shadow:0 4px 12px #1769e822!important}
+.btn.primary:hover{background:#1558c8!important;border-color:#1558c8!important}.btn.ghost,.text-btn{background:#fff!important;color:#175bc3!important;border-color:#cbdcf4!important}
+.btn:hover{transform:translateY(-1px);border-color:#80aef4!important}
+.hero-tags span,.signal-chips span{background:#eff6ff!important;border:1px solid #d9e8ff!important;color:#2459a4!important;border-radius:7px!important}
+.hero-visual{background:linear-gradient(145deg,#fafdff,#eef5ff)!important}.visual-top,.visual-bottom,.visual-top span,.visual-bottom span,.legend span{color:#536b88!important}
+.mini-graph svg g[fill="#101b2b"] circle{fill:#eaf2ff!important}.mini-graph svg g[fill="#eaf3ff"]{fill:#244366!important}.mini-graph svg g[fill="#7f91ad"]{fill:#536b88!important}
+.metric{border-radius:13px!important}.metric small{color:#6680a3!important}.metric strong{color:#142b4d!important}.metric .metric-word{color:#1769e8!important}
+.pipeline article{border-radius:13px!important;min-height:155px!important}.step,.step-icon{color:#2563eb!important}
+.panel{padding:20px!important}.panel-head h3{font-size:16px!important}.panel-head .eyebrow{color:#6c82a1!important}
+input,textarea,select{border:1px solid #cbd9eb!important;border-radius:9px!important;background:#fff!important;color:#142b4d!important;box-shadow:none!important}
+input:focus,textarea:focus,select:focus{outline:3px solid #2563eb1e!important;border-color:#6ba0f4!important}
+label,.toggle-row b{color:#243f61!important}.toggle-row small,.fineprint{color:#607792!important}
+.empty-state{color:#617792!important;background:#f8fbff!important;border-style:dashed!important}
+.divider{border-color:#dce6f3!important}.dot.cyan{background:#1683ed!important}.dot.violet{background:#8061df!important}.dot.amber{background:#d58b14!important}
+.risk-chip{border-radius:999px!important}.risk-high{background:#ffe7ec!important;color:#b42340!important}.risk-mid{background:#fff3d8!important;color:#8b5b00!important}.risk-low{background:#dcfce9!important;color:#176a43!important}
+.victim-help-panel,.findings-panel,.graph-panel,.storyline-panel,.threat-tree-panel{background:#fff!important}
+.signal-chips span{color:#285a9f!important}
+.mail-provider-pill{background:#eff6ff!important;color:#175bc3!important;border-color:#d6e6ff!important}
+.mail-result,.mail-research-card,.mail-evidence-strip article{background:#fff!important;color:#142b4d!important}
+.mail-result *,.mail-research-card *,.mail-evidence-strip *{color:inherit}
+.mail-result p,.mail-research-card p,.mail-research-card li,.mail-evidence-strip p{color:#536b88!important}
+.mail-result a,.mail-research-card a{color:#145fc9!important}
+.mail-form textarea{min-height:190px}
+.sim-device{box-shadow:0 18px 50px #203b5a20!important;border-color:#cad8e9!important}
+.sim-device-wrap,.sim-control-column,.sim-layout{color:#142b4d!important}
+.sim-accessibility,.sim-control-column .panel,.sim-chain-panel,.recovery-panel{background:#fff!important;color:#142b4d!important;border-color:#dce6f3!important}
+.scenario-btn{background:#fff!important;color:#142b4d!important;border-color:#dce6f3!important}
+.scenario-btn b,.scenario-btn strong{color:#142b4d!important}.scenario-btn small{color:#617792!important}
+.scenario-btn.active,.scenario-btn:hover{background:#eef5ff!important;border-color:#8db8fa!important}
+.scenario-icon{background:#e5efff!important;color:#175bc3!important;border-color:#cfe0ff!important}
+.sim-explain-panel,.sim-explain-panel *{color:#142b4d}
+.sim-explain-panel .muted,.sim-explain-panel p,.sim-explain-panel small,.sim-explain-panel li{color:#536b88!important}
+.sim-explain-panel .sim-warning{background:#fff7e8!important;border:1px solid #e8c982!important;color:#172b42!important}
+.sim-explain-panel .sim-warning-head{color:#b42340!important}
+.sim-explain-panel .finding{background:#fff!important;border-color:#dce6f3!important;color:#142b4d!important}
+.sim-explain-panel .finding b,.sim-explain-panel .finding strong{color:#142b4d!important}
+.sim-explain-panel .finding small,.sim-explain-panel .finding p{color:#536b88!important}
+.sim-explain-panel .finding-mark{color:#cf3150!important}
+.sim-phone-actions button{color:#142b4d!important;background:#fff!important;border:1px solid #cbd9eb!important}
+.sim-phone-actions button.primary-action{color:#fff!important;background:#1769e8!important;border-color:#1769e8!important}
+.sim-phone-actions button.danger-action{color:#b42340!important;background:#fff!important;border-color:#f0bdc7!important}
+.sim-bubble,.sim-bubble *,.sim-email-head b,.sim-email-head small,.sim-webpage,.sim-webpage *{color:#142b4d}
+.sim-bubble .sim-sender{color:#28547e!important}.sim-webpage p{color:#536b88!important}
+.sim-risk-urgency{background:#fff0b8!important;color:#704600!important}.sim-risk-secret{background:#ffe1e7!important;color:#9b1834!important}.sim-risk-money{background:#ffe8c7!important;color:#804300!important}.sim-risk-link{background:#dcecff!important;color:#064c9a!important}
+.recovery-options button{background:#f8fbff!important;color:#254364!important;border-color:#dce6f3!important}
+.recovery-options button.active{background:#eaf2ff!important;color:#1458c8!important;border-color:#8db8fa!important}
+.footer{color:#6b7f99!important;border-color:#dce6f3!important}
+a{color:#175bc3}
+@media(max-width:900px){.shell{grid-template-columns:1fr!important}.sidebar{position:relative;height:auto;padding:14px!important;border-right:0;border-bottom:1px solid #dce6f3!important}.nav{display:flex;overflow-x:auto}.nav button{white-space:nowrap}.sidebar-bottom{display:none}.main{padding:18px!important}.hero-grid{grid-template-columns:1fr!important}}
