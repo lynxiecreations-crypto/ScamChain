@@ -19,6 +19,21 @@ parceltrack:{kind:'sms',app:'Messages',sender:'PARCEL STATUS · DEMO',from:'Know
 googledrive:{kind:'email',app:'Email inbox',sender:'GOOGLE DRIVE · STORAGE WARNING',from:'drive-alert@google-storage-review.example.test',subject:'Google Drive storage warning — action required',body:'Your Google Drive files will be permanently deleted today. Restore access by entering your Google password and verification code. A reactivation fee may apply.',link:'https://google-drive-recover.example.test/restore',risk:'HIGH CONCERN',signals:[['Claimed brand mismatch','The content claims to be Google Drive but the sender uses an unrelated fictional domain.'],['Credential request','A password and verification code are requested.'],['Loss threat','Permanent deletion is threatened to force quick action.']],steps:['Do not use the link or enter account details.','Open Google Drive directly using the official app or a known bookmark.','Check storage and security notices inside your account.'],stages:[['Cloud-storage pretext','The email claims an account/storage problem.'],['Urgency','Permanent file loss is threatened.'],['Credential phishing','The user is asked to enter account secrets.']]}
 };
 function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function highlightEmailText(value){
+ var safe=esc(value);
+ var patterns=[
+  [new RegExp('\\b(URGENT|immediately|within \\d+ minutes|today|permanently deleted|disabled|suspended|confidential|do not contact IT|do not call)\\b','gi'),'sim-risk-word sim-risk-urgency'],
+  [new RegExp('\\b(password|one-time code|verification code|OTP|PIN|CVV|credentials)\\b','gi'),'sim-risk-word sim-risk-secret'],
+  [new RegExp('\\b(pay|payment|fee|bank account|bank details|refund|wire transfer|collect request)\\b','gi'),'sim-risk-word sim-risk-money'],
+  [new RegExp('(https?://[^\\s<]+)','gi'),'sim-risk-word sim-risk-link']
+ ];
+ patterns.forEach(function(entry){safe=safe.replace(entry[0],function(match){return '<mark class="'+entry[1]+'">'+match+'</mark>'})});
+ return safe;
+}
+function focusExplanation(){
+ var panel=$('simExplainPanel')||document.querySelector('.sim-explain-panel');
+ if(panel){panel.classList.remove('sim-attention');void panel.offsetWidth;panel.classList.add('sim-attention');if(window.matchMedia('(max-width: 1050px)').matches)panel.scrollIntoView({behavior:'smooth',block:'start'})}
+}
 function current(){return scenarios[active]}
 var appLanguage='en';
 var uiText={
@@ -83,14 +98,14 @@ function renderMessage(){
  if(kind==='call'){
   $('simScreen').innerHTML='<div class="sim-message-date">INCOMING CALL · SIMULATED</div><div class="sim-call-card"><div class="sim-call-avatar">☎</div><div class="sim-call-label">Caller claims to be support or family</div><b>'+esc(s.sender)+'</b><small>'+esc(s.from)+'</small><p>'+esc(s.body)+'</p><div class="sim-phone-actions"><button class="danger-action" id="simAnswerRisk">Continue conversation (simulated)</button><button class="primary-action" id="simCheckMessage">Ask ScamChain for help</button><button id="simBackInbox">End call / go back</button></div></div>';
  }else if(kind==='email'){
-  $('simScreen').innerHTML='<div class="sim-message-date">TODAY · FICTIONAL EMAIL</div><div class="sim-email-head"><b>'+esc(s.subject)+'</b><small>From: '+esc(s.from)+'</small></div><div class="sim-bubble"><span class="sim-sender">'+esc(s.sender)+'</span>'+esc(s.body)+(s.link.indexOf('https://')===0?'<span class="sim-link">'+esc(s.link)+'</span>':'')+'</div><div class="sim-phone-actions"><button class="primary-action" id="simCheckMessage">Check this email</button><button class="danger-action" id="simTapLink">'+(s.link.indexOf('https://')===0?'Open link (simulated)':'Inspect message')+'</button><button id="simBackInbox">← Back to inbox</button></div>';
+  $('simScreen').innerHTML='<div class="sim-message-date">TODAY · FICTIONAL EMAIL</div><div class="sim-email-head"><b>'+esc(s.subject)+'</b><small>From: '+esc(s.from)+'</small></div><div class="sim-bubble"><span class="sim-sender">'+esc(s.sender)+'</span>'+highlightEmailText(s.body)+(s.link.indexOf('https://')===0?'<span class="sim-link">'+highlightEmailText(s.link)+'</span>':'')+'</div><div class="sim-phone-actions"><button class="primary-action" id="simCheckMessage">Check this email</button><button class="danger-action" id="simTapLink">'+(s.link.indexOf('https://')===0?'Open link (simulated)':'Inspect message')+'</button><button id="simBackInbox">← Back to inbox</button></div>';
  }else if(kind==='payment'){
   $('simScreen').innerHTML='<div class="sim-message-date">PAYMENT REQUEST · DEMO ONLY</div><div class="sim-payment-card"><span>REQUEST FROM</span><b>Unknown recipient</b><strong>₹4,999</strong><small>Message says this is needed to receive a refund.</small><div class="sim-phone-actions"><button class="primary-action" id="simCheckMessage">Check request with ScamChain</button><button class="danger-action" id="simTapLink">Review what approval would mean</button><button id="simBackInbox">← Back</button></div></div>';
  }else{
   $('simScreen').innerHTML='<div class="sim-message-date">TODAY · FICTIONAL MESSAGE</div><div class="sim-bubble"><span class="sim-sender">'+esc(s.sender)+'</span>'+esc(s.body)+(s.link.indexOf('https://')===0?'<span class="sim-link">'+esc(s.link)+'</span>':'<span class="sim-link">'+esc(s.link)+'</span>')+'</div><div class="sim-phone-actions"><button id="simCheckMessage" class="primary-action">Check this message with ScamChain</button><button id="simTapLink" class="'+(s.link.indexOf('https://')===0?'danger-action':'')+'">'+(s.link.indexOf('https://')===0?'Open link (simulated)':'Inspect request')+'</button><button id="simBackInbox">← Back to inbox</button></div>';
  }
- var c=$('simCheckMessage');if(c)c.onclick=function(){visited.check=true;showWarning(false)};
- var l=$('simTapLink');if(l)l.onclick=function(){visited.link=true;openFakePage()};
+ var c=$('simCheckMessage');if(c)c.onclick=function(){visited.check=true;showWarning(false);focusExplanation()};
+ var l=$('simTapLink');if(l)l.onclick=function(){visited.link=true;openFakePage();focusExplanation()};
  var a=$('simAnswerRisk');if(a)a.onclick=function(){visited.action=true;showWarning(true)};
  var b=$('simBackInbox');if(b)b.onclick=renderInbox;
 }
