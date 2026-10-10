@@ -1,0 +1,30 @@
+/* Simulation readability and interactive investigation flow */
+.sim-explain-panel,.sim-explain-panel *{color:#172b42}
+.sim-explain-panel .muted,.sim-explain-panel p,.sim-explain-panel small,.sim-explain-panel li{color:#334b64!important}
+.sim-explain-panel .sim-warning{background:#fff7e8!important;border:1px solid #e8c982!important;color:#172b42!important}
+.sim-explain-panel .sim-warning-head{color:#a51f3c!important;font-weight:900}
+.sim-explain-panel .finding{display:flex;gap:10px;align-items:flex-start;background:#fff!important;border:1px solid #d3deeb!important;border-radius:8px;padding:10px;margin:7px 0;color:#172b42!important}
+.sim-explain-panel .finding b,.sim-explain-panel .finding strong{color:#172b42!important;font-weight:850}
+.sim-explain-panel .finding small,.sim-explain-panel .finding p{display:block;color:#334b64!important;font-size:12px;line-height:1.65}
+.sim-explain-panel .finding-mark{flex:none;color:#a51f3c!important;font-weight:900}
+.sim-explain-panel .sim-next-step{border-top:1px solid #edc5a0;margin-top:10px;padding-top:12px}
+.sim-explain-panel .sim-step-label{display:block;color:#a51f3c!important;font-size:11px;font-weight:900;letter-spacing:.07em;margin-bottom:6px}
+.sim-explain-panel .sim-next-step b{color:#172b42!important}
+.sim-explain-panel .sim-next-step p{color:#334b64!important;line-height:1.7}
+.sim-risk-word{font-weight:900;border-radius:4px;padding:1px 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.sim-risk-urgency{background:#fff0b8!important;color:#704600!important;border-bottom:2px solid #c58a13!important}
+.sim-risk-secret{background:#ffe1e7!important;color:#9b1834!important;border-bottom:2px solid #cf3854!important}
+.sim-risk-money{background:#ffe8c7!important;color:#804300!important;border-bottom:2px solid #c77a13!important}
+.sim-risk-link{background:#dcecff!important;color:#064c9a!important;border-bottom:2px solid #2874c8!important;overflow-wrap:anywhere}
+.sim-bubble mark{font-size:inherit}
+.sim-attention{animation:simExplainPulse 1.05s ease-out 1;scroll-margin-top:28px}
+@keyframes simExplainPulse{0%{box-shadow:0 0 0 0 #087f8344;border-color:#087f83}100%{box-shadow:0 0 0 10px #087f8300}}
+.sim-email-head b{color:#172b42!important}.sim-email-head small{color:#334b64!important}
+.sim-bubble,.sim-bubble *{color:#172b42}
+.sim-bubble .sim-sender{color:#274761!important;font-weight:900}
+.sim-phone-actions button,.sim-phone-actions button:not(.primary-action):not(.danger-action){color:#172b42!important;background:#fff!important;border:1px solid #cbd8e6!important;font-weight:800}
+.sim-phone-actions button.primary-action{color:#fff!important;background:#087f83!important;border-color:#087f83!important}
+.sim-phone-actions button.danger-action{color:#a51f3c!important;background:#fff!important;border-color:#e8bac3!important}
+.sim-webpage,.sim-webpage *{color:#172b42}
+.sim-webpage p{color:#334b64!important}
+@media(max-width:1050px){.sim-explain-panel{scroll-margin-top:18px}.sim-explain-panel .finding small{font-size:13px}}
